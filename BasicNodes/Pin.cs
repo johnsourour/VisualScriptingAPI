@@ -16,6 +16,7 @@ public abstract class Pin {
     protected PinDataType type;
     protected PinTarget source;
     
+    public Pin(){}
     public Pin(Node src, uint pinID, PinDataType typ) {
         source = new PinTarget(src, pinID);
         type = typ;
@@ -31,6 +32,8 @@ public abstract class Pin {
 }
 
 public class PinValue : Pin {
+
+    public PinValue(){}
     public PinValue(Node s, uint p, PinDataType d) : base(s, p, d) {}
     
     public dynamic get() {
@@ -39,9 +42,14 @@ public class PinValue : Pin {
 }
 
 public class PinExecutable : Pin {
+
+
+    public PinExecutable(){}
+
     public PinExecutable(Node s, uint p) : base(s, p, PinDataType.Execution) {}
 
     public void run() {
-        source.source.run();
+        if(exists())
+           source.source.run();
     }
 }

@@ -1,42 +1,47 @@
 using System.IO;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
-/*
-// FlowNode can act as both a WHILE Node and an IF/ELSE Node
-public class FlowNode : Node {
-    //input pins
-    const int in_condition = 0; //should be Pin<boolean>
-    const int in_exec = 1;
 
-    //output pins
-    const int out_true = 0; //acts as if for IF/ELSE and loop for WHILE
-    const int out_false = 1; //acts as else for IF/ELSE and break for WHILE
 
-    public FlowNode();
-    public FlowNode(Pin<T> _in_condition, Pin<T> _in_exec, Pin<T> _out_true, Pin<T> _out_false)
-    {
-        input_pins = new List<Pin>();
-        input_pins.Add(_in_condition);
-        input_pins.Add(_in_exec);
-
-        out_pins = new List<Pin>();
-        out_pins.Add(_out_true);
-        out_pins.Add(_out_false);
+public class WhileNode : Node {
+    public WhileNode() : base(NodeType.WhileNode) {
+        addInputPin(new PinValue());
+        addOutputPin(new PinExecutable());
+        addOutputPin(new PinExecutable());
         
-        base.setType("Flow");
     }
-    public override void run() {
-        Pin pinin = input_pins[in_exec];
-        var condition = input_pins[in_condition].source.get() as boolean; //gets the value
 
-        if (condition) {
-            output_pins[out_true].source.run();
+    public bool ready(){
+        return inputPins[0].exists() && outputPins[0].exists() && outputPins[1].exists();
+    }
+
+    public bool setConditionPin(Node src, PinDataType type){
+        return setInputPin(src, 0, type);
+    }
+
+    public bool setWhilePin(Node src){
+       return setOutputPin(src, 0);
+    }
+
+    public bool setBreakPin(Node src){
+       return setOutputPin(src, 1);
+    }
+
+    
+    public override void run() {
+        if(!ready()){
+            Debug.LogError("Node pins not initialized.");
+            return;
         }
-        else{
-            output_pins[out_false].source.run();
+        dynamic condition;
+        condition = inputPins[0].get();
+        while(condition){
+            outputPins[0].run();
+            condition = inputPins[0].get();
         }
-        
+            
+        outputPins[1].run();
     }
 }
-*/

@@ -7,7 +7,7 @@ public class ScriptContainer : MonoBehaviour {
     
     List<Node> nodes;
 
-    Node eventStartNode;
+    EventNode eventStartNode;
 
     ScriptContainer() {
         symbolTable = new SymbolTable();
@@ -18,26 +18,26 @@ public class ScriptContainer : MonoBehaviour {
         symbolTable.Add<string>("Wow");
 
         eventStartNode = new EventNode();
-        Node e = eventStartNode;
+        EventNode e = eventStartNode;
         nodes.Add(eventStartNode);
 
-        Node c = new ConstantNode<string>("Cool Dude");
+        ConstantNode<string> c = new ConstantNode<string>("Cool Dude");
         nodes.Add(c);
 
-        Node s = new SetterNode<string>(symbolTable, "Wow");
+        SetterNode<string> s = new SetterNode<string>(symbolTable, "Wow");
         nodes.Add(s);
 
-        Node g = new GetterNode<string>(symbolTable, "Wow");
+        GetterNode<string> g = new GetterNode<string>(symbolTable, "Wow");
         nodes.Add(g);
 
-        Node p = new PrintStringNode();
+        PrintStringNode p = new PrintStringNode();
         nodes.Add(p);
         
-        p.inputPins.Add(new PinValue(g, 0, PinDataType.String));
-        p.outputPins.Add(new PinExecutable(null, 0));
-        e.outputPins.Add(new PinExecutable(s, 0));
-        s.outputPins.Add(new PinExecutable(p, 0));
-        s.inputPins.Add(new PinValue(c, 0, PinDataType.String));
+        p.setStringInputPin(g, PinDataType.String);
+        p.setStringOutputPin(null);
+        e.setEventOutPin(s);
+        s.setSetterOutputPin(p);
+        s.setSetterInputPin(c,PinDataType.String);
     }
 
     public void Start() {

@@ -3,17 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PrintStringNode : Node {
-    public PrintStringNode() : base(NodeType.Function) {}
+    public PrintStringNode() : base(NodeType.Function) {
+        addInputPin(new PinValue());
+        addOutputPin(new PinExecutable());
+    }
+
+    public void setStringInputPin(Node src, PinDataType type){
+        setInputPin(src,0, type);
+    }
+
+    public void setStringOutputPin(Node src){
+        setOutputPin(src,0);
+    }
+
+    public bool ready(){
+        return inputPins[0].exists();
+    }
     
     public override void run() {
-        string val = "String not found.";
+        if(!ready()){
+            Debug.LogError("Node pins not initialized");
+            return;
+        }
 
-        if (inputPins.Count >= 1 && inputPins[0].exists())
-            val = inputPins[0].get() as string;
-        
+        dynamic val = inputPins[0].get();
+
         Debug.Log(val);
-
-        if (outputPins.Count >= 1 && outputPins[0].exists())
-            outputPins[0].run();
+        
+        outputPins[0].run();
     }
 }

@@ -10,5 +10,6 @@ public enum NodeType {
     Constant,
     Function,
     Intermediate,
-    Flow
+    IfNode, 
+    WhileNode
 }
