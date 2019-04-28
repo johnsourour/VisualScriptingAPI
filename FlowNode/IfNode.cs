@@ -2,7 +2,7 @@ using System.IO;
 using System;
 using System.Collections.Generic;
 
-
+/*
 // FlowNode can act as both a WHILE Node and an IF/ELSE Node
 public class FlowNode : Node {
     //input pins
@@ -26,9 +26,8 @@ public class FlowNode : Node {
         
         base.setType("Flow");
     }
-    public override void run(){
-      
-        var in = input_pins[in_exec];
+    public override void run() {
+        Pin pinin = input_pins[in_exec];
         var condition = input_pins[in_condition].source.get() as boolean; //gets the value
 
         if (condition) {
@@ -40,3 +39,4 @@ public class FlowNode : Node {
         
     }
 }
+*/
