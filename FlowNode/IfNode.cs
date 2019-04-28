@@ -14,7 +14,7 @@ public class IfNode : Node {
     }
 
     public bool ready(){
-        return inputPins[0].exists() && outputPins[0].exists() && outputPins[1].exists();
+        return inputPins[0].exists();
     }
 
     public bool setConditionPin(Node src, PinDataType type){
@@ -37,7 +37,7 @@ public class IfNode : Node {
         }
         dynamic condition;
         condition = inputPins[0].get();
-        if(condition)
+        if ((condition as bool?).Value)
             outputPins[0].run();
         else
             outputPins[1].run();

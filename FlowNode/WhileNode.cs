@@ -14,7 +14,7 @@ public class WhileNode : Node {
     }
 
     public bool ready(){
-        return inputPins[0].exists() && outputPins[0].exists() && outputPins[1].exists();
+        return inputPins[0].exists();
     }
 
     public bool setConditionPin(Node src, PinDataType type){
@@ -37,7 +37,7 @@ public class WhileNode : Node {
         }
         dynamic condition;
         condition = inputPins[0].get();
-        while(condition){
+        while((condition as bool?).Value) {
             outputPins[0].run();
             condition = inputPins[0].get();
         }
