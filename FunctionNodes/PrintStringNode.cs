@@ -28,7 +28,7 @@ public class PrintStringNode : Node {
 
         dynamic val = inputPins[0].get();
 
-        Debug.Log(val);
+        Debug.Log(val as string);
         
         outputPins[0].run();
     }
