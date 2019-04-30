@@ -2,15 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveObject : Node {
-    public MoveObject() : base(NodeType.Function) {
-        addInputPin(new PinValue()); //location
+public class RotateObject : Node {
+    public RotateObject() : base(NodeType.Function) {
+        addInputPin(new PinValue()); //Scale
         addInputPin(new PinValue()); //object
         addOutputPin(new PinExecutable()); //execution out
-       
     }
 
-    public void setLocationPin(Node src, PinDataType type){
+    public void setRotationPin(Node src, PinDataType type){
         setInputPin(src, 0, type);
     }
 
@@ -32,12 +31,12 @@ public class MoveObject : Node {
             return;
         }
 
-        Vector3 location = inputPins[0].get();
+        Vector3 rotation = inputPins[0].get();
         Transform obj = inputPins[1].get();
 
         // move object
-        obj.position = location;
-        Debug.Log("Done moving!");
+        obj.Rotate(rotation);
+        Debug.Log("Done rotating!");
         
         outputPins[0].run();
     }

@@ -39,10 +39,12 @@ public class SetterNode<T> : Node {
             symbolTable.Set<int>(variableName, (val as int?).Value);
         else if (typeof(T) == typeof(float))
             symbolTable.Set<float>(variableName, (val as float?).Value);
-        else if (typeof(T) == typeof(string))
+        else if (typeof(T) == typeof(string))   
             symbolTable.Set<string>(variableName, val as string);
         else if (typeof(T) == typeof(Vector3))
-            symbolTable.Set<Vector3>(variableName, (val as Vector3?).Value);
+            symbolTable.Set<Vector3>(variableName, val);
+        else if (typeof(T) == typeof(Transform))
+            symbolTable.Set<Transform>(variableName, (val as Transform));
         else
             Debug.LogError("Invalid type in Symbol Table Entry");
 

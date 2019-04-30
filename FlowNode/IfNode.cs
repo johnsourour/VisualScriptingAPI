@@ -6,7 +6,7 @@ using UnityEngine;
 
 
 public class IfNode : Node {
-    public IfNode() : base(NodeType.IfNode) {
+    public IfNode() : base(NodeType.FlowNode) {
         addInputPin(new PinValue());
         addOutputPin(new PinExecutable());
         addOutputPin(new PinExecutable());

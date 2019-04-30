@@ -2,15 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveObject : Node {
-    public MoveObject() : base(NodeType.Function) {
-        addInputPin(new PinValue()); //location
+public class ScaleObject : Node {
+    public ScaleObject() : base(NodeType.Function) {
+        addInputPin(new PinValue()); //Scale
         addInputPin(new PinValue()); //object
         addOutputPin(new PinExecutable()); //execution out
-       
     }
 
-    public void setLocationPin(Node src, PinDataType type){
+    public void setScalePin(Node src, PinDataType type){
         setInputPin(src, 0, type);
     }
 
@@ -32,12 +31,12 @@ public class MoveObject : Node {
             return;
         }
 
-        Vector3 location = inputPins[0].get();
+        Vector3 scale = inputPins[0].get();
         Transform obj = inputPins[1].get();
 
         // move object
-        obj.position = location;
-        Debug.Log("Done moving!");
+        obj.localScale = scale;
+        Debug.Log("Done scaling!");
         
         outputPins[0].run();
     }

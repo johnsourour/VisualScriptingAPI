@@ -14,7 +14,7 @@ public class PinTarget {
 
 public abstract class Pin {
     protected PinDataType type;
-    protected PinTarget source;
+    protected PinTarget source = null;
     
     public Pin(){}
     public Pin(Node src, uint pinID, PinDataType typ) {
@@ -50,6 +50,6 @@ public class PinExecutable : Pin {
 
     public void run() {
         if(exists())
-           source.source.run();
+            source.source.run();
     }
 }

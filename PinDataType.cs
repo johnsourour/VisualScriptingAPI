@@ -9,6 +9,7 @@ public enum PinDataType {
     Integer,
     String,
     Vector,
+    Transform,
     ARObject,
     ProjectionMap,
     Image,

@@ -6,7 +6,7 @@ using UnityEngine;
 
 
 public class WhileNode : Node {
-    public WhileNode() : base(NodeType.WhileNode) {
+    public WhileNode() : base(NodeType.FlowNode) {
         addInputPin(new PinValue());
         addOutputPin(new PinExecutable());
         addOutputPin(new PinExecutable());

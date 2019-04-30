@@ -44,6 +44,7 @@ public abstract class Node {
 
     protected void addOutputPin(PinExecutable p){
         outputPins.Add(p);
+        setOutputPin(null,(uint)outputPins.Count-1);
     }
 
     protected bool setOutputPin(Node src, uint pinID){
