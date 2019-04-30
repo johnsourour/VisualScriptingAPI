@@ -35,7 +35,7 @@ public class MoveObject : Node {
         tranform object = inputPins[1].get() as tranform;
 
         // move object
-        transform.position = MoveTowards(tranform.position, location, 1e9) //distance? 1e9 for now..
+        transform.position = location
         
         outputPins[0].run();
     }
