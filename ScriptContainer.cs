@@ -127,7 +127,7 @@ public class ScriptContainer : MonoBehaviour {
             case "eventgestureswipedown":
             case "eventgestureswiperight":
             case "eventgestureswipeleft":
-                return new EventNode()) ;
+                return new EventNode();
         
             case "setterbool":
                 return new SetterNode<bool>();
