@@ -16,11 +16,11 @@ public class GetTextComponent : Node {
     public override dynamic get(uint pinID){
         if(!ready()){
             Debug.LogError("Node pins not initialized");
-            return;
+            return -1;
         }
 
-        GameObject? obj = inputPins[0].get();
-        return obj;
+        GameObject obj = inputPins[0].get();
+        return obj.GetComponent(typeof(Text));
     }
 
     

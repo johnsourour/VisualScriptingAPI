@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Dynamic;
 
-public class _3DObject : DynamicObject
+public class _3DObject 
 {
     public MeshFilter mesh_filter;
     public MeshRenderer mesh_renderer;
