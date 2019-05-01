@@ -32,7 +32,7 @@ public abstract class Node {
         inputPins.Add(p);
     }
 
-    protected bool setInputPin(Node src, uint pinID, PinDataType typ){
+    public bool setInputPin(Node src, uint pinID, PinDataType typ){
         if(pinID >= inputPins.Count){
             Debug.LogError("Invalid pinID.");
             return false;
@@ -47,7 +47,7 @@ public abstract class Node {
         setOutputPin(null,(uint)outputPins.Count-1);
     }
 
-    protected bool setOutputPin(Node src, uint pinID){
+    public bool setOutputPin(Node src, uint pinID){
         if(pinID >= outputPins.Count){
             Debug.LogError("Invalid pinID.");
             return false;

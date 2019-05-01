@@ -17,19 +17,6 @@ public class WhileNode : Node {
         return inputPins[0].exists();
     }
 
-    public bool setConditionPin(Node src, PinDataType type){
-        return setInputPin(src, 0, type);
-    }
-
-    public bool setWhilePin(Node src){
-       return setOutputPin(src, 0);
-    }
-
-    public bool setBreakPin(Node src){
-       return setOutputPin(src, 1);
-    }
-
-    
     public override void run() {
         if(!ready()){
             Debug.LogError("Node pins not initialized.");

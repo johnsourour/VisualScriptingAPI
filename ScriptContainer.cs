@@ -53,31 +53,113 @@ public class ScriptContainer : MonoBehaviour {
         ConstantNode<Vector3> vc3 = new ConstantNode<Vector3>(v3);
         nodes.Add(vc3);
 
-        MoveObject mo = new MoveObject();
+        // MoveObject mo = new MoveObject();
+        // nodes.Add(mo);
+
+        // ScaleObject so = new ScaleObject();
+        // nodes.Add(so);
+
+        // RotateObject ro = new RotateObject();
+        // nodes.Add(ro);
+
+        dynamic mo = createNode("moveobject");
         nodes.Add(mo);
 
-        ScaleObject so = new ScaleObject();
-        nodes.Add(so);
-
-        RotateObject ro = new RotateObject();
+        dynamic ro = createNode("rotateobject");
         nodes.Add(ro);
 
-        e.setEventOutPin(mo);
+        dynamic so = createNode("scaleobject");
+        nodes.Add(so);
 
-        mo.setLocationPin(vc1, PinDataType.Vector);
-        mo.setObjectPin(c1, PinDataType.Transform);
-        mo.setExecOutputPin(so);
+        e.setOutputPin(mo, 0);
 
-        so.setScalePin(vc2, PinDataType.Vector);
-        so.setObjectPin(c1, PinDataType.Transform);
-        so.setExecOutputPin(ro);
+        mo.setInputPin(vc1 , 0, PinDataType.Vector);
+        mo.setInputPin(c1, 1, PinDataType.Transform);
+        mo.setOutputPin(so, 0);
 
-        ro.setRotationPin(vc3, PinDataType.Vector);
-        ro.setObjectPin(c1, PinDataType.Transform);
+        so.setInputPin(vc2 , 0, PinDataType.Vector);
+        so.setInputPin(c1, 1, PinDataType.Transform);
+        so.setOutputPin(ro, 0);
+
+        ro.setInputPin(vc3, 0, PinDataType.Vector);
+        ro.setInputPin(c1, 1, PinDataType.Transform);
 
     }
 
     public void Start() {
         eventStartNode.run();
+    }
+
+    
+    public Node createNode(string type){
+        switch(type)
+        {
+            case "rotateobject":
+                return (new RotateObject() ) ;
+            case "scaleobject":
+                return (new ScaleObject() ) ;
+            case "moveobject":
+                return (new MoveObject() ) ;
+            case "printstring":
+                return (new PrintStringNode() ) ;
+            
+            case "eventstart":
+            case "eventupdate":
+            case "eventgesturepress":
+            case "eventgesturerelease":
+            case "eventgestureswipeup":
+            case "eventgestureswipedown":
+            case "eventgestureswiperight":
+            case "eventgestureswipeleft":
+                return (new EventNode()) ;
+        
+            case "setterbool":
+                return (new SetterNode<bool>() ) ;
+            case "setterstring":
+                return (new SetterNode<string>() ) ;
+            case "setternum":
+                return (new SetterNode<float>() ) ;
+            case "setterint":
+                return (new SetterNode<int>() ) ;
+            case "setterobj":
+            case "setterpm":
+                return (new SetterNode<Transform>() ) ;
+            case "settervector":
+                return (new SetterNode<Vector3>() ) ;
+        
+            case "getterbool":
+                return (new GetterNode<bool>() ) ;
+            case "getterstring":
+                return (new GetterNode<string>() ) ;
+            case "getternum":
+                return (new GetterNode<float>() ) ;
+            case "getterint":
+                return (new GetterNode<int>() ) ;
+            case "getterobj":
+            case "getterpm":
+                return (new GetterNode<Transform>() ) ;
+            case "gettervector":
+                return (new GetterNode<Vector3>() ) ;
+        
+            case "constantbool":
+                return (new ConstantNode<bool>() ) ;
+            case "constantstring":
+                return (new ConstantNode<string>() ) ;
+            case "constantnum":
+                return (new ConstantNode<float>() ) ;
+            case "constantint":
+                return (new ConstantNode<int>() ) ;
+            case "constantobj":
+            case "constantpm":
+                return (new ConstantNode<Transform>() ) ;
+            case "constantvector":
+                return (new ConstantNode<Vector3>() ) ;
+            
+            default:
+            {
+                Debug.LogError("Invalid Node Type!");
+                return new EventNode();
+            }          
+        }
     }
 }

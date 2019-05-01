@@ -6,6 +6,10 @@ public class SetterNode<T> : Node {
     private string variableName;
     private SymbolTable symbolTable;
 
+    public SetterNode() : base(NodeType.Setter) {
+        addInputPin(new PinValue());
+        addOutputPin(new PinExecutable());
+    }
     public SetterNode(SymbolTable _symbolTable, string _variableName) : base(NodeType.Setter) {
         symbolTable     = _symbolTable;
         variableName    = _variableName;
@@ -14,12 +18,10 @@ public class SetterNode<T> : Node {
         addOutputPin(new PinExecutable());
     }
 
-    public void setSetterInputPin(Node src, PinDataType type){
-        setInputPin(src, 0, type);
-    }
+    public void setVariableParams(SymbolTable _symbolTable, string _variableName){
+        symbolTable     = _symbolTable;
+        variableName    = _variableName;
 
-    public void setSetterOutputPin(Node src){
-        setOutputPin(src, 0);
     }
     
     public bool ready(){

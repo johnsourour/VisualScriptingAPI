@@ -5,12 +5,17 @@ using UnityEngine;
 public class GetterNode<T> : Node {
     private string variableName;
     private SymbolTable symbolTable;
-
+    public GetterNode(): base(NodeType.Getter){}
     public GetterNode(SymbolTable _symbolTable, string _variableName) : base(NodeType.Getter) {
         symbolTable=_symbolTable;
         variableName=_variableName;
     }
-    
+
+    public void setVariableParams(SymbolTable _symbolTable, string _variableName){
+        symbolTable     = _symbolTable;
+        variableName    = _variableName;
+
+    }
     public override dynamic get(uint pinID) {
         dynamic v;
         if (!symbolTable.Get<T>(variableName, out v)) {

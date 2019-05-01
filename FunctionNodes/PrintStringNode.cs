@@ -8,14 +8,6 @@ public class PrintStringNode : Node {
         addOutputPin(new PinExecutable());
     }
 
-    public void setStringInputPin(Node src, PinDataType type){
-        setInputPin(src,0, type);
-    }
-
-    public void setStringOutputPin(Node src){
-        setOutputPin(src,0);
-    }
-
     public bool ready(){
         return inputPins[0].exists();
     }

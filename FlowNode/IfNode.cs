@@ -16,19 +16,6 @@ public class IfNode : Node {
     public bool ready(){
         return inputPins[0].exists();
     }
-
-    public bool setConditionPin(Node src, PinDataType type){
-        return setInputPin(src, 0, type);
-    }
-
-    public bool setTruePin(Node src){
-       return setOutputPin(src, 0);
-    }
-
-    public bool setFalsePin(Node src){
-       return setOutputPin(src, 1);
-    }
-
     
     public override void run() {
         if(!ready()){

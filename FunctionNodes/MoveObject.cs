@@ -10,18 +10,6 @@ public class MoveObject : Node {
        
     }
 
-    public void setLocationPin(Node src, PinDataType type){
-        setInputPin(src, 0, type);
-    }
-
-    public void setObjectPin(Node src, PinDataType type){
-        setInputPin(src, 1, type);
-    }
-
-    public void setExecOutputPin(Node src){
-        setOutputPin(src,0);
-    }
-
     public bool ready(){
         return inputPins[0].exists() && inputPins[1].exists();
     }
