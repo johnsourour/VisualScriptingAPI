@@ -97,13 +97,27 @@ public class ScriptContainer : MonoBehaviour {
         switch(type)
         {
             case "rotateobject":
-                return (new RotateObject() ) ;
+                return new RotateObject();
             case "scaleobject":
-                return (new ScaleObject() ) ;
+                return new ScaleObject();
             case "moveobject":
-                return (new MoveObject() ) ;
+                return new MoveObject();
             case "printstring":
-                return (new PrintStringNode() ) ;
+                return new PrintStringNode();
+            case "createobject":
+                return new CreateObject();
+            case "createtext":
+                return new CreateTextComponent();
+            case "create3d":
+                return new Create3DComponent();
+            case "loadfile":
+                return new FileToString();
+            case "writefile":
+                return new WriteToFile();
+            case "gettext":
+                return new GetTextComponent();
+            case "get3d":
+                return new Get3DComponent();
             
             case "eventstart":
             case "eventupdate":
@@ -113,49 +127,49 @@ public class ScriptContainer : MonoBehaviour {
             case "eventgestureswipedown":
             case "eventgestureswiperight":
             case "eventgestureswipeleft":
-                return (new EventNode()) ;
+                return new EventNode()) ;
         
             case "setterbool":
-                return (new SetterNode<bool>() ) ;
+                return new SetterNode<bool>();
             case "setterstring":
-                return (new SetterNode<string>() ) ;
+                return new SetterNode<string>();
             case "setternum":
-                return (new SetterNode<float>() ) ;
+                return new SetterNode<float>();
             case "setterint":
-                return (new SetterNode<int>() ) ;
+                return new SetterNode<int>();
             case "setterobj":
             case "setterpm":
-                return (new SetterNode<Transform>() ) ;
+                return new SetterNode<Transform>();
             case "settervector":
-                return (new SetterNode<Vector3>() ) ;
+                return new SetterNode<Vector3>();
         
             case "getterbool":
-                return (new GetterNode<bool>() ) ;
+                return new GetterNode<bool>();
             case "getterstring":
-                return (new GetterNode<string>() ) ;
+                return new GetterNode<string>();
             case "getternum":
-                return (new GetterNode<float>() ) ;
+                return new GetterNode<float>();
             case "getterint":
-                return (new GetterNode<int>() ) ;
+                return new GetterNode<int>();
             case "getterobj":
             case "getterpm":
-                return (new GetterNode<Transform>() ) ;
+                return new GetterNode<Transform>();
             case "gettervector":
-                return (new GetterNode<Vector3>() ) ;
+                return new GetterNode<Vector3>();
         
             case "constantbool":
-                return (new ConstantNode<bool>() ) ;
+                return new ConstantNode<bool>();
             case "constantstring":
-                return (new ConstantNode<string>() ) ;
+                return new ConstantNode<string>();
             case "constantnum":
-                return (new ConstantNode<float>() ) ;
+                return new ConstantNode<float>();
             case "constantint":
-                return (new ConstantNode<int>() ) ;
+                return new ConstantNode<int>();
             case "constantobj":
             case "constantpm":
-                return (new ConstantNode<Transform>() ) ;
+                return new ConstantNode<Transform>();
             case "constantvector":
-                return (new ConstantNode<Vector3>() ) ;
+                return new ConstantNode<Vector3>();
             
             default:
             {
