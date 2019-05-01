@@ -5,12 +5,14 @@ using UnityEngine;
 [System.Serializable]
 public enum PinDataType {
     Execution,
+    Bool,
     Number,
     Integer,
     String,
     Vector,
-    Transform,
-    ARObject,
+    GameObject,
+    Component3D,
+    ComponentText,
     ProjectionMap,
     Image,
     VariableReference

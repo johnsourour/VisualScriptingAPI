@@ -9,6 +9,8 @@ public class ScriptContainer : MonoBehaviour {
 
     EventNode eventStartNode;
 
+    public Transform contentArea;
+
     ScriptContainer() {
         symbolTable = new SymbolTable();
         nodes = new List<Node>();
@@ -40,7 +42,7 @@ public class ScriptContainer : MonoBehaviour {
         // s.setSetterInputPin(c,PinDataType.String);
 
         //Takes current object
-        ConstantNode<Transform> c1 = new ConstantNode<Transform>(transform);
+        ConstantNode<GameObject> c1 = new ConstantNode<GameObject>(gameObject);
         nodes.Add(c1);
 
         Vector3 v1 = new Vector3(1, 1, 1);
@@ -74,15 +76,15 @@ public class ScriptContainer : MonoBehaviour {
         e.setOutputPin(mo, 0);
 
         mo.setInputPin(vc1 , 0, PinDataType.Vector);
-        mo.setInputPin(c1, 1, PinDataType.Transform);
+        mo.setInputPin(c1, 1, PinDataType.GameObject);
         mo.setOutputPin(so, 0);
 
         so.setInputPin(vc2 , 0, PinDataType.Vector);
-        so.setInputPin(c1, 1, PinDataType.Transform);
+        so.setInputPin(c1, 1, PinDataType.GameObject);
         so.setOutputPin(ro, 0);
 
         ro.setInputPin(vc3, 0, PinDataType.Vector);
-        ro.setInputPin(c1, 1, PinDataType.Transform);
+        ro.setInputPin(c1, 1, PinDataType.GameObject);
 
     }
 

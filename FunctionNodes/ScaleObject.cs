@@ -20,10 +20,10 @@ public class ScaleObject : Node {
         }
 
         Vector3 scale = inputPins[0].get();
-        Transform obj = inputPins[1].get();
+        GameObject obj = inputPins[1].get();
 
         // move object
-        obj.localScale = scale;
+        obj.transform.localScale = scale;
         Debug.Log("Done scaling!");
         
         outputPins[0].run();

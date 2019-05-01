@@ -21,10 +21,10 @@ public class MoveObject : Node {
         }
 
         Vector3 location = inputPins[0].get();
-        Transform obj = inputPins[1].get();
+        GameObject obj = inputPins[1].get();
 
         // move object
-        obj.position = location;
+        obj.transform.position = location;
         Debug.Log("Done moving!");
         
         outputPins[0].run();

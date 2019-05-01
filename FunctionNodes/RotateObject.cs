@@ -20,10 +20,10 @@ public class RotateObject : Node {
         }
 
         Vector3 rotation = inputPins[0].get();
-        Transform obj = inputPins[1].get();
+        GameObject obj = inputPins[1].get();
 
         // move object
-        obj.Rotate(rotation);
+        obj.transform.Rotate(rotation);
         Debug.Log("Done rotating!");
         
         outputPins[0].run();
