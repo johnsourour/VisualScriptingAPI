@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ScriptContainer : MonoBehaviour {
     SymbolTable symbolTable;
@@ -118,6 +119,64 @@ public class ScriptContainer : MonoBehaviour {
                 return new GetTextComponent();
             case "get3d":
                 return new Get3DComponent();
+            case "setcomptext":
+                return new SetComponentText();
+            case "getcomptext":
+                return new GetComponentText();
+            case "makevector":
+                return new MakeVector();
+            case "breakvector":
+                return new BreakVector();
+            case "numtoint":
+                return new NumberToInt();
+            case "inttonum":
+                return new IntToNumber();
+            case "addint":
+                return new AddInt();
+            case "addnum":
+                return new AddNumber();
+            case "subint":
+                return new SubInt();
+            case "subnum":
+                return new SubNumber();
+            case "divint":
+                return new DivInt();
+            case "divnum":
+                return new DivNumber();
+            case "multint":
+                return new MultInt();
+            case "multnum":
+                return new MultNumber();
+            case "sqrt":
+                return new SquareRoot();
+            case "gettime":
+                return new GetTime();
+            case "lerpnum":
+                return new LerpNumber();
+            case "lerpvector":
+                return new LerpVector();
+            case "gtenum":
+                return new GreaterEqualNumber();
+            case "gtnum":
+                return new GreaterNumber();
+            case "gteint":
+                return new GreaterEqualInt();
+            case "gtint":
+                return new GreaterInt();
+            case "equalnum":
+                return new EqualNumber();
+            case "equalint":
+                return new EqualInt();
+            case "not":
+                return new Not();
+            case "concat":
+                return new ConcatenateString();
+            case "substring":
+                return new GetSubstring();
+            case "stringindex":
+                return new IndexString();
+            case "strlen":
+                return new StringLength();
             
             case "eventstart":
             case "eventupdate":
@@ -138,8 +197,13 @@ public class ScriptContainer : MonoBehaviour {
             case "setterint":
                 return new SetterNode<int>();
             case "setterobj":
+                return new SetterNode<GameObject>();
+            case "setter3d":
+                return new SetterNode<_3DObject>();
             case "setterpm":
-                return new SetterNode<Transform>();
+                return new SetterNode<GameObject>();
+            case "settertext":
+                return new SetterNode<Text>();
             case "settervector":
                 return new SetterNode<Vector3>();
         
@@ -152,10 +216,16 @@ public class ScriptContainer : MonoBehaviour {
             case "getterint":
                 return new GetterNode<int>();
             case "getterobj":
+                return new GetterNode<GameObject>();
+            case "getter3d":
+                return new GetterNode<_3DObject>();
             case "getterpm":
-                return new GetterNode<Transform>();
+                return new GetterNode<GameObject>();
+            case "gettertext":
+                return new GetterNode<Text>();
             case "gettervector":
                 return new GetterNode<Vector3>();
+
         
             case "constantbool":
                 return new ConstantNode<bool>();
@@ -166,8 +236,13 @@ public class ScriptContainer : MonoBehaviour {
             case "constantint":
                 return new ConstantNode<int>();
             case "constantobj":
+                return new ConstantNode<GameObject>();
+            case "constant3d":
+                return new ConstantNode<_3DObject>();
             case "constantpm":
-                return new ConstantNode<Transform>();
+                return new ConstantNode<GameObject>();
+            case "constanttext":
+                return new ConstantNode<Text>();
             case "constantvector":
                 return new ConstantNode<Vector3>();
             
