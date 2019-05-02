@@ -24,6 +24,10 @@ public class Get3DComponent : Node {
         
         MeshFilter mesh_filter = obj.GetComponent(typeof(MeshFilter)) as MeshFilter;
         MeshRenderer mesh_renderer = obj.GetComponent(typeof(MeshRenderer)) as MeshRenderer;
+
+        
+        Debug.Log("Got 3D Component");
+
         return new _3DObject(mesh_filter, mesh_renderer);
         
     }

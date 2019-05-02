@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using System;
 
-public class GetTextComponent : Node {
+public class Not : Node {
 
-    public GetTextComponent() : base(NodeType.Intermediate) {
-        addInputPin(new PinValue()); //game object      
+    public Not() : base(NodeType.Intermediate) {
+        addInputPin(new PinValue()); //bool
     }
 
     public bool ready(){
@@ -19,8 +19,11 @@ public class GetTextComponent : Node {
             return -1;
         }
 
-        GameObject obj = inputPins[0].get();
-        return obj.GetComponent(typeof(Text)) as Text;
+        bool x = inputPins[0].get();
+        bool z = !x;
+
+        return z;
+        
     }
 
     

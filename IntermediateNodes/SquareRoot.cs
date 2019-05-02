@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using System;
 
-public class GetTextComponent : Node {
+public class SquareRoot : Node {
 
-    public GetTextComponent() : base(NodeType.Intermediate) {
-        addInputPin(new PinValue()); //game object      
+    public SquareRoot() : base(NodeType.Intermediate) {
+        addInputPin(new PinValue()); //float
     }
 
     public bool ready(){
@@ -19,8 +19,12 @@ public class GetTextComponent : Node {
             return -1;
         }
 
-        GameObject obj = inputPins[0].get();
-        return obj.GetComponent(typeof(Text)) as Text;
+        float x = inputPins[0].get();
+        float z = (float)Math.Sqrt(x);
+        Debug.Log("Sqrt done");
+
+        return z;
+        
     }
 
     

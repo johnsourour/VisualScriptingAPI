@@ -1,12 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class GetTextComponent : Node {
+public class IntToNumber : Node {
 
-    public GetTextComponent() : base(NodeType.Intermediate) {
-        addInputPin(new PinValue()); //game object      
+    public IntToNumber() : base(NodeType.Intermediate) {
+        addInputPin(new PinValue()); //int  
     }
 
     public bool ready(){
@@ -19,8 +18,12 @@ public class GetTextComponent : Node {
             return -1;
         }
 
-        GameObject obj = inputPins[0].get();
-        return obj.GetComponent(typeof(Text)) as Text;
+        float x = (float)inputPins[0].get();
+        
+        Debug.Log("NumberToInt done");
+
+        return x;
+        
     }
 
     
