@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SetterNode<T> : Node {
     private string variableName;
@@ -43,10 +44,18 @@ public class SetterNode<T> : Node {
             symbolTable.Set<float>(variableName, (val as float?).Value);
         else if (typeof(T) == typeof(string))   
             symbolTable.Set<string>(variableName, val as string);
+        else if (typeof(T) == typeof(bool))   
+            symbolTable.Set<bool>(variableName, val);
         else if (typeof(T) == typeof(Vector3))
             symbolTable.Set<Vector3>(variableName, val);
-        else if (typeof(T) == typeof(Transform))
-            symbolTable.Set<Transform>(variableName, (val as Transform));
+        else if (typeof(T) == typeof(GameObject))
+            symbolTable.Set<GameObject>(variableName, (val as GameObject));
+        else if (typeof(T) == typeof(_3DObject))
+            symbolTable.Set<_3DObject>(variableName, (val as _3DObject));
+        else if (typeof(T) == typeof(Text))
+            symbolTable.Set<Text>(variableName, (val as Text));
+        else if (typeof(T) == typeof(Image))
+            symbolTable.Set<Image>(variableName, (val as Image));
         else
             Debug.LogError("Invalid type in Symbol Table Entry");
 

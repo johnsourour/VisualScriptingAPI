@@ -26,6 +26,8 @@ public class CreateTextComponent : Node {
         comp = obj.AddComponent<Text>();
 
         
+        Debug.Log("Text Component Created");
+        
         outputPins[0].run();
     }
 

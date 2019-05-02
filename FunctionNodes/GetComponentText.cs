@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class Create3DComponent : Node {
+public class GetComponentText : Node {
 
-    private _3DObject comp;
-    public Create3DComponent() : base(NodeType.Function) {
-        addInputPin(new PinValue()); //game object      
+    private Text textComponent;
+    public GetComponentText() : base(NodeType.Function) {
+        addInputPin(new PinValue()); //Text   
         addOutputPin(new PinExecutable()); //exec out  
     }
 
@@ -21,18 +22,15 @@ public class Create3DComponent : Node {
             return;
         }
 
-        GameObject obj = inputPins[0].get();
-        MeshFilter mf = obj.AddComponent<MeshFilter>();
-        MeshRenderer mr = obj.AddComponent<MeshRenderer>();
-        comp = new _3DObject(mf, mr);
+        textComponent = inputPins[0].get();        
         
         
-        Debug.Log("3D Component Created");
+        Debug.Log("Got Text Component");
 
         outputPins[0].run();
     }
 
     public override dynamic get(uint pinID){
-        return comp;
+        return textComponent.text;
     }
 }

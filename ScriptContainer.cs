@@ -9,6 +9,13 @@ public class ScriptContainer : MonoBehaviour {
     List<Node> nodes;
 
     EventNode eventStartNode;
+    EventNode eventUpdateNode;
+    EventNode eventPressNode;
+    EventNode eventReleaseNode;
+    EventNode eventSwipeUpNode;
+    EventNode eventSwipeDownNode;
+    EventNode eventSwipeLeftNode;
+    EventNode eventSwipeRightNode;
 
     public Transform contentArea;
 
@@ -90,9 +97,32 @@ public class ScriptContainer : MonoBehaviour {
     }
 
     public void Start() {
-        eventStartNode.run();
+        if (eventStartNode)
+            eventStartNode.run();
     }
 
+    public void Update() {
+        if (eventUpdateNode)
+            eventUpdateNode.run();
+
+        if (Input.GetMouseButtonDown(0) && eventPressNode)
+            eventPressNode.run();
+
+        if (Input.GetMouseButtonUp(0) && eventReleaseNode)
+            eventReleaseNode.run();
+
+        if (Input.GetKeyDown(KeyCode.UpArrow) && eventSwipeUpNode)
+            eventSwipeUpNode.run();
+
+        if (Input.GetKeyDown(KeyCode.DownArrow) && eventSwipeDownNode)
+            eventSwipeDownNode.run();
+        
+        if (Input.GetKeyDown(KeyCode.LeftArrow) && eventSwipeLeftNode)
+            eventSwipeLeftNode.run();
+
+        if (Input.GetKeyDown(KeyCode.RightArrow) && eventSwipeRightNode)
+            eventSwipeRightNode.run();
+    }
     
     public Node createNode(string type){
         switch(type)
@@ -121,6 +151,8 @@ public class ScriptContainer : MonoBehaviour {
                 return new Get3DComponent();
             case "setcomptext":
                 return new SetComponentText();
+            case "setfontsize":
+                return new SetTextFontSize();
             case "getcomptext":
                 return new GetComponentText();
             case "makevector":
@@ -177,16 +209,35 @@ public class ScriptContainer : MonoBehaviour {
                 return new IndexString();
             case "strlen":
                 return new StringLength();
+            case "exit":
+                return new ExitNode();
+            case "setpmstatus":
+                return new SetPMStatus();
             
             case "eventstart":
+                eventStartNode = new EventNode();
+                return eventStartNode;
             case "eventupdate":
+                eventUpdateNode = new EventNode();
+                return eventUpdateNode;
             case "eventgesturepress":
+                eventPressNode = new EventNode();
+                return eventPressNode;
             case "eventgesturerelease":
+                eventReleaseNode = new EventNode();
+                return eventReleaseNode;
             case "eventgestureswipeup":
+                eventSwipeUpNode = new EventNode();
+                return eventSwipeUpNode;
             case "eventgestureswipedown":
+                eventSwipeDownNode = new EventNode();
+                return eventSwipeDownNode;
             case "eventgestureswiperight":
+                eventSwipeRightNode = new EventNode();
+                return eventSwipeRightNode;
             case "eventgestureswipeleft":
-                return new EventNode();
+                eventSwipeLeftNode = new EventNode();
+                return eventSwipeLeftNode;
         
             case "setterbool":
                 return new SetterNode<bool>();
