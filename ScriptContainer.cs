@@ -221,6 +221,12 @@ public class ScriptContainer : MonoBehaviour {
                 return new SetPMStatus();
             case "getgesturepos":
                 return new GetGesturePosition();
+            case "getimage":
+                return new GetImageComponent();
+            case "createimage":
+                return new CreateImageComponent();
+            case "setcompimage":
+                return new SetComponentImage();
             
             case "eventstart":
                 eventStartNode = new EventNode();
