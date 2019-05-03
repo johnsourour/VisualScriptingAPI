@@ -36,9 +36,10 @@ public class SetTextFont : Node {
         string text_align = inputPins[4].get();  
 
         TextMesh textComponent = inputPins[0].get();   
-        Font fnt = CreateDynamicFontFromOSFont(text_font, sze);
+        Font fnt = Font.CreateDynamicFontFromOSFont(text_font, sze);
         Color color = new Color(v.x, v.y, v.z, 1);
 
+        textComponent.font = fnt;
         textComponent.fontSize = sze;
         textComponent.fontStyle = getStyle(text_style);
         textComponent.color = color;
@@ -64,17 +65,17 @@ public class SetTextFont : Node {
             }
         }
     }
-    private Alignment getAlign(string s){
+    private TextAlignment getAlign(string s){
         switch(s){
             case "Left":
-                return Alignment.Left;
+                return TextAlignment.Left;
             case "Right":
-                return Alignment.Right;
+                return TextAlignment.Right;
             case "Center":
-                return Alignment.Center;
+                return TextAlignment.Center;
             default:{
                 Debug.LogError("Invalid text alignment");
-                return Alignment.Center;
+                return TextAlignment.Center;
             }
         }
     }

@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ExitNode : Node {
-    public ExitNode() : base(NodeType.Function) {}
+    public ExitNode() : base(NodeType.Function) {
+        
+    }
 
     public override void run() {
-        Application.exit();
+        Application.Quit();
     }
 }

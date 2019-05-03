@@ -97,30 +97,30 @@ public class ScriptContainer : MonoBehaviour {
     }
 
     public void Start() {
-        if (eventStartNode)
+        if (eventStartNode!=null)
             eventStartNode.run();
     }
 
     public void Update() {
-        if (eventUpdateNode)
+        if (eventUpdateNode!=null)
             eventUpdateNode.run();
 
-        if (Input.GetMouseButtonDown(0) && eventPressNode)
+        if (Input.GetMouseButtonDown(0) && eventPressNode!=null)
             eventPressNode.run();
 
-        if (Input.GetMouseButtonUp(0) && eventReleaseNode)
+        if (Input.GetMouseButtonUp(0) && eventReleaseNode!=null)
             eventReleaseNode.run();
 
-        if (Input.GetKeyDown(KeyCode.UpArrow) && eventSwipeUpNode)
+        if (Input.GetKeyDown(KeyCode.UpArrow) && eventSwipeUpNode!=null)
             eventSwipeUpNode.run();
 
-        if (Input.GetKeyDown(KeyCode.DownArrow) && eventSwipeDownNode)
+        if (Input.GetKeyDown(KeyCode.DownArrow) && eventSwipeDownNode!=null)
             eventSwipeDownNode.run();
         
-        if (Input.GetKeyDown(KeyCode.LeftArrow) && eventSwipeLeftNode)
+        if (Input.GetKeyDown(KeyCode.LeftArrow) && eventSwipeLeftNode!=null)
             eventSwipeLeftNode.run();
 
-        if (Input.GetKeyDown(KeyCode.RightArrow) && eventSwipeRightNode)
+        if (Input.GetKeyDown(KeyCode.RightArrow) && eventSwipeRightNode!=null)
             eventSwipeRightNode.run();
     }
     
@@ -152,7 +152,7 @@ public class ScriptContainer : MonoBehaviour {
             case "setcomptext":
                 return new SetComponentText();
             case "setfontsize":
-                return new SetTextFontSize();
+                return new SetTextFont();
             case "getcomptext":
                 return new GetComponentText();
             case "makevector":
