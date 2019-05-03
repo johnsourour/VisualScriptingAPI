@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class CreateImageComponent : Node {
 
-    private SpriteRenderer comp;
+    private RawImage comp;
     public CreateImageComponent() : base(NodeType.Function) {
         addInputPin(new PinValue()); //game object      
         addOutputPin(new PinExecutable()); //exec out  
@@ -23,7 +23,7 @@ public class CreateImageComponent : Node {
         }
 
         GameObject obj = inputPins[0].get();
-        comp = obj.AddComponent<SpriteRenderer>();
+        comp = obj.AddComponent<RawImage>();
 
         
         Debug.Log("Image Component Created");

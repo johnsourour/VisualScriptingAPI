@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class SetComponentImage : Node {
 
     public SetComponentImage() : base(NodeType.Function) {
-        addInputPin(new PinValue()); //Image   
+        addInputPin(new PinValue()); //Image  
         addInputPin(new PinValue()); //string 
         addOutputPin(new PinExecutable()); //exec out  
     }
@@ -22,19 +22,15 @@ public class SetComponentImage : Node {
             return;
         }
 
-        SpriteRenderer sr = inputPins[0].get();        
+        RawImage img = inputPins[0].get();        
         string path = inputPins[1].get();
-        
-        textComponent.text = str;
         
 
         WWW www = new WWW (path);
         while(!www.isDone)
-          yield return null;
+          return;
 
-        Sprite s = new Sprite();
-        s.texure = www.texture;
-        sr.sprite = s;
+        img.texture = www.texture;
         
         Debug.Log("Image Component Set");
 

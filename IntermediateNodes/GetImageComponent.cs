@@ -22,7 +22,7 @@ public class GetImageComponent : Node {
 
         GameObject obj = inputPins[0].get();
         
-        SpriteRenderer img = obj.GetComponent(typeof(SpriteRenderer)) as SpriteRenderer;
+        RawImage img = obj.GetComponent(typeof(RawImage)) as RawImage;
 
         
         Debug.Log("Got 3D Component");

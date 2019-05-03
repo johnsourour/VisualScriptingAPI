@@ -300,16 +300,13 @@ public class ScriptContainer : MonoBehaviour {
                 return new ConstantNode<float>();
             case "constantint":
                 return new ConstantNode<int>();
-            case "constantobj":
-                return new ConstantNode<GameObject>();
-            case "constant3d":
-                return new ConstantNode<_3DObject>();
-            case "constantpm":
-                return new ConstantNode<GameObject>();
-            case "constanttext":
-                return new ConstantNode<Text>();
             case "constantvector":
                 return new ConstantNode<Vector3>();
+            case "constantobj":
+            case "constant3d":
+            case "constantpm":
+            case "constanttext":
+                return new ConstantNode<GameObject>();
             
             default:
             {
