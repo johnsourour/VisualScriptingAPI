@@ -381,7 +381,7 @@ public class ScriptContainer : MonoBehaviour {
                     {
                         line = streamReader.ReadLine();
                         internal_node_name = line;
-                        Node nd = createNode(internal_node_name); //dynamic instead of Node
+                        dynamic nd = createNode(internal_node_name);
                         nodes.Add(nd);
 
                         while (streamReader.ReadLine() != "[") ; //ignore graphical data
