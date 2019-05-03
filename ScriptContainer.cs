@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
+using System.IO;
+using System.Text;
 
 public class ScriptContainer : MonoBehaviour {
     SymbolTable symbolTable;
@@ -25,11 +28,14 @@ public class ScriptContainer : MonoBehaviour {
     }
 
     public void Awake() {
-        symbolTable.Add<string>("Wow");
 
-        eventStartNode = new EventNode();
-        EventNode e = eventStartNode;
-        nodes.Add(eventStartNode);
+        ParseIntermediateCode("CodeExported.txt");
+
+        // symbolTable.Add<string>("Wow");
+
+        // eventStartNode = new EventNode();
+        // EventNode e = eventStartNode;
+        // nodes.Add(eventStartNode);
 
         // ConstantNode<string> c = new ConstantNode<string>("Cool Dude");
         // nodes.Add(c);
@@ -50,18 +56,18 @@ public class ScriptContainer : MonoBehaviour {
         // s.setSetterInputPin(c,PinDataType.String);
 
         //Takes current object
-        ConstantNode<GameObject> c1 = new ConstantNode<GameObject>(gameObject);
-        nodes.Add(c1);
+        // ConstantNode<GameObject> c1 = new ConstantNode<GameObject>(gameObject);
+        // nodes.Add(c1);
 
-        Vector3 v1 = new Vector3(1, 1, 1);
-        ConstantNode<Vector3> vc1 = new ConstantNode<Vector3>(v1);
-        nodes.Add(vc1);
-        Vector3 v2 = new Vector3(3, 3, 3);
-        ConstantNode<Vector3> vc2 = new ConstantNode<Vector3>(v2);
-        nodes.Add(vc2);
-        Vector3 v3 = new Vector3(0, 90, 0);
-        ConstantNode<Vector3> vc3 = new ConstantNode<Vector3>(v3);
-        nodes.Add(vc3);
+        // Vector3 v1 = new Vector3(1, 1, 1);
+        // ConstantNode<Vector3> vc1 = new ConstantNode<Vector3>(v1);
+        // nodes.Add(vc1);
+        // Vector3 v2 = new Vector3(3, 3, 3);
+        // ConstantNode<Vector3> vc2 = new ConstantNode<Vector3>(v2);
+        // nodes.Add(vc2);
+        // Vector3 v3 = new Vector3(0, 90, 0);
+        // ConstantNode<Vector3> vc3 = new ConstantNode<Vector3>(v3);
+        // nodes.Add(vc3);
 
         // MoveObject mo = new MoveObject();
         // nodes.Add(mo);
@@ -72,27 +78,27 @@ public class ScriptContainer : MonoBehaviour {
         // RotateObject ro = new RotateObject();
         // nodes.Add(ro);
 
-        dynamic mo = createNode("moveobject");
-        nodes.Add(mo);
+        // dynamic mo = createNode("moveobject");
+        // nodes.Add(mo);
 
-        dynamic ro = createNode("rotateobject");
-        nodes.Add(ro);
+        // dynamic ro = createNode("rotateobject");
+        // nodes.Add(ro);
 
-        dynamic so = createNode("scaleobject");
-        nodes.Add(so);
+        // dynamic so = createNode("scaleobject");
+        // nodes.Add(so);
 
-        e.setOutputPin(mo, 0);
+        // e.setOutputPin(mo, 0);
 
-        mo.setInputPin(vc1 , 0, PinDataType.Vector);
-        mo.setInputPin(c1, 1, PinDataType.GameObject);
-        mo.setOutputPin(so, 0);
+        // mo.setInputPin(vc1 , 0, PinDataType.Vector);
+        // mo.setInputPin(c1, 1, PinDataType.GameObject);
+        // mo.setOutputPin(so, 0);
 
-        so.setInputPin(vc2 , 0, PinDataType.Vector);
-        so.setInputPin(c1, 1, PinDataType.GameObject);
-        so.setOutputPin(ro, 0);
+        // so.setInputPin(vc2 , 0, PinDataType.Vector);
+        // so.setInputPin(c1, 1, PinDataType.GameObject);
+        // so.setOutputPin(ro, 0);
 
-        ro.setInputPin(vc3, 0, PinDataType.Vector);
-        ro.setInputPin(c1, 1, PinDataType.GameObject);
+        // ro.setInputPin(vc3, 0, PinDataType.Vector);
+        // ro.setInputPin(c1, 1, PinDataType.GameObject);
 
     }
 
@@ -213,6 +219,8 @@ public class ScriptContainer : MonoBehaviour {
                 return new ExitNode();
             case "setpmstatus":
                 return new SetPMStatus();
+            case "getgesturepos":
+                return new GetGesturePosition();
             
             case "eventstart":
                 eventStartNode = new EventNode();
@@ -304,4 +312,177 @@ public class ScriptContainer : MonoBehaviour {
             }          
         }
     }
+    private void ParseIntermediateCode(string filename)
+    {
+        bool var_flag = true;
+        int list_count = 0;
+        
+        FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read);
+
+        using (StreamReader streamReader = new StreamReader(fs, Encoding.Default))
+        {
+            string line = String.Empty;
+            while ((line = streamReader.ReadLine()) != null)
+            {
+                if (line == "[" && list_count == 0)
+                {
+                    var_flag = false;
+                    list_count++;
+                    line = streamReader.ReadLine();
+                }
+
+                if (var_flag)
+                {
+                    string[] tokens = line.Split(':');
+                    if (tokens[0] != null && tokens[1] != null)
+                    {
+                        switch (tokens[0])
+                        {
+                            case "GameObject":
+                                symbolTable.Add<GameObject>(tokens[1]);
+                                break;
+                            case "Component3D":
+                                symbolTable.Add<_3DObject>(tokens[1]);
+                                break;
+                            case "Integer":
+                                symbolTable.Add<int>(tokens[1]);
+                                break;
+                            case "Number":
+                                symbolTable.Add<float>(tokens[1]);
+                                break;
+                            case "ProjectionMap":
+                                symbolTable.Add<GameObject>(tokens[1]);
+                                break;
+                            case "String":
+                                symbolTable.Add<string>(tokens[1]);
+                                break;
+                            case "Bool":
+                                symbolTable.Add<bool>(tokens[1]);
+                                break;
+                            case "ComponentText":
+                                symbolTable.Add<Text>(tokens[1]);
+                                break;
+                            case "Vector":
+                                symbolTable.Add<Vector3>(tokens[1]);
+                                break;
+                            case "Image":
+                               symbolTable.Add<Image>(tokens[1]);
+                               break;
+                            default:
+                                Debug.LogError("Invalid type in Symbol Table Entry");
+                                break;
+                        }
+                    }
+                }
+                else //if node_flag
+                {
+                    string internal_node_name;
+                    if (line == "{")
+                    {
+                        line = streamReader.ReadLine();
+                        internal_node_name = line;
+                        Node nd = createNode(internal_node_name); //dynamic instead of Node
+                        nodes.Add(nd);
+
+                        while (streamReader.ReadLine() != "[") ; //ignore graphical data
+
+                        line = streamReader.ReadLine();
+                        while (line != "]") //read input pins
+                        {
+                            string[] tokens = line.Split(' ');
+                            if (tokens[0] != "Execution") //save pins if not execution
+                            {
+                                uint node_index, pin_index, datatype_index_start, datatype_index_end;
+                                string datatype;
+
+                                //parse line to find node and pin
+                                node_index = (uint)(line.IndexOf("node") + 4);
+                                pin_index = (uint)(line.IndexOf("pin") + 3);
+                                datatype_index_start = (uint)(line.IndexOf(":") + 1);
+                                datatype_index_end = (uint)(line.IndexOf(" ", (int)datatype_index_start));
+                                datatype = line.Substring((int)datatype_index_start, (int)datatype_index_end - (int)datatype_index_start);
+
+                                PinDataType pdt = PinDataType.Number; //Default
+
+                                switch (datatype)
+                                {
+                                    case "GameObject":
+                                        pdt = PinDataType.GameObject;
+                                        break;
+                                    case "Component3D":
+                                        pdt = PinDataType.Component3D;
+                                        break;
+                                    case "Integer":
+                                        pdt = PinDataType.Integer;
+                                        break;
+                                    case "Number":
+                                        pdt = PinDataType.Number;
+                                        break;
+                                    case "ProjectionMap":
+                                        pdt = PinDataType.ProjectionMap;
+                                        break;
+                                    case "String":
+                                        pdt = PinDataType.String;
+                                        break;
+                                    case "Bool":
+                                        pdt = PinDataType.Bool;
+                                        break;
+                                    case "ComponentText":
+                                        pdt = PinDataType.ComponentText;
+                                        break;
+                                    case "Image":
+                                       pdt = PinDataType.Image;
+                                       break;
+                                    case "VariableReference":
+                                       pdt = PinDataType.VariableReference;
+                                       break;
+                                    case "Vector":
+                                        pdt = PinDataType.Vector;
+                                        break;
+                                    default:
+                                        Debug.LogError("Invalid Pin Datatype");
+                                        break;
+                                }
+
+                                nd.setInputPin(nodes[(int)node_index], pin_index, pdt);
+                            }
+                            line = streamReader.ReadLine();
+                        }
+
+                        streamReader.ReadLine(); //ignore '['
+
+                        line = streamReader.ReadLine();
+                        while (line != "]") //read ouput pins
+                        {
+                            string[] tokens = line.Split(' ');
+                            if (tokens[0] == "Execution") //save pins only if execution
+                            {
+                                uint node_index, pin_index;
+
+                                //parse line to find node and pin
+                                node_index = (uint)(line.IndexOf("node") + 4);
+                                pin_index = (uint)(line.IndexOf("pin") + 3);
+                                
+                                //parse line to find node and pin
+                                nd.setOutputPin(nodes[(int)node_index], pin_index);
+
+                                line = streamReader.ReadLine();
+                            }
+                        }
+
+                        streamReader.ReadLine(); //ignore '['
+
+                        line = streamReader.ReadLine();
+                        while (line != "]") //read parameters
+                        {
+                            //TODO: save parameters
+                            line = streamReader.ReadLine();
+                        }
+                        streamReader.ReadLine(); //ignore "}"
+                    }
+                }
+            }
+        }
+    }
+
 }
