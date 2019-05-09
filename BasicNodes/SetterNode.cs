@@ -3,21 +3,42 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SetterNode<T> : Node {
-    private string variableName;
-    private SymbolTable symbolTable;
+public class SetterNode : Node {
+    protected SymbolTable symbolTable;
+    protected string variableName;
+    public SetterNode(): base(NodeType.Setter) {
+        symbolTable = null;
+        variableName = "";
 
-    public SetterNode() : base(NodeType.Setter) {
         addInputPin(new PinValue());
         addOutputPin(new PinExecutable());
     }
+
+    public SetterNode(SymbolTable _symbolTable) : base(NodeType.Setter) {
+        symbolTable=_symbolTable;
+        variableName="";
+
+        addInputPin(new PinValue());
+        addOutputPin(new PinExecutable());
+    }
+    
     public SetterNode(SymbolTable _symbolTable, string _variableName) : base(NodeType.Setter) {
-        symbolTable     = _symbolTable;
-        variableName    = _variableName;
+        symbolTable=_symbolTable;
+        variableName=_variableName;
 
         addInputPin(new PinValue());
         addOutputPin(new PinExecutable());
     }
+
+    public void setVarName(string vn) {
+        variableName = vn;
+    }
+}
+
+public class SetterNode<T> : SetterNode {
+    public SetterNode() : base() {}
+    public SetterNode(SymbolTable _symbolTable) : base(_symbolTable) {}
+    public SetterNode(SymbolTable _symbolTable, string _variableName) : base(_symbolTable, _variableName) {}
 
     public void setVariableParams(SymbolTable _symbolTable, string _variableName){
         symbolTable     = _symbolTable;
@@ -42,7 +63,7 @@ public class SetterNode<T> : Node {
             symbolTable.Set<int>(variableName, (val as int?).Value);
         else if (typeof(T) == typeof(float))
             symbolTable.Set<float>(variableName, (val as float?).Value);
-        else if (typeof(T) == typeof(string))   
+        else if (typeof(T) == typeof(string))
             symbolTable.Set<string>(variableName, val as string);
         else if (typeof(T) == typeof(bool))   
             symbolTable.Set<bool>(variableName, val);

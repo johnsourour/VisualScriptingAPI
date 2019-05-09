@@ -9,7 +9,7 @@ using System.Text;
 public class ScriptContainer : MonoBehaviour {
     SymbolTable symbolTable;
     
-    List<Node> nodes;
+    public List<Node> nodes;
 
     EventNode eventStartNode;
     EventNode eventUpdateNode;
@@ -22,87 +22,12 @@ public class ScriptContainer : MonoBehaviour {
 
     public Transform contentArea;
 
-    ScriptContainer() {
+    public ScriptContainer() {
         symbolTable = new SymbolTable();
         nodes = new List<Node>();
     }
 
-    public void Awake() {
-
-        ParseIntermediateCode("CodeExported.txt");
-
-        // symbolTable.Add<string>("Wow");
-
-        // eventStartNode = new EventNode();
-        // EventNode e = eventStartNode;
-        // nodes.Add(eventStartNode);
-
-        // ConstantNode<string> c = new ConstantNode<string>("Cool Dude");
-        // nodes.Add(c);
-
-        // SetterNode<string> s = new SetterNode<string>(symbolTable, "Wow");
-        // nodes.Add(s);
-
-        // GetterNode<string> g = new GetterNode<string>(symbolTable, "Wow");
-        // nodes.Add(g);
-
-        // PrintStringNode p = new PrintStringNode();
-        // nodes.Add(p);
-        
-        // p.setStringInputPin(g, PinDataType.String);
-        // p.setStringOutputPin(null);
-        // e.setEventOutPin(s);
-        // s.setSetterOutputPin(p);
-        // s.setSetterInputPin(c,PinDataType.String);
-
-        //Takes current object
-        // ConstantNode<GameObject> c1 = new ConstantNode<GameObject>(gameObject);
-        // nodes.Add(c1);
-
-        // Vector3 v1 = new Vector3(1, 1, 1);
-        // ConstantNode<Vector3> vc1 = new ConstantNode<Vector3>(v1);
-        // nodes.Add(vc1);
-        // Vector3 v2 = new Vector3(3, 3, 3);
-        // ConstantNode<Vector3> vc2 = new ConstantNode<Vector3>(v2);
-        // nodes.Add(vc2);
-        // Vector3 v3 = new Vector3(0, 90, 0);
-        // ConstantNode<Vector3> vc3 = new ConstantNode<Vector3>(v3);
-        // nodes.Add(vc3);
-
-        // MoveObject mo = new MoveObject();
-        // nodes.Add(mo);
-
-        // ScaleObject so = new ScaleObject();
-        // nodes.Add(so);
-
-        // RotateObject ro = new RotateObject();
-        // nodes.Add(ro);
-
-        // dynamic mo = createNode("moveobject");
-        // nodes.Add(mo);
-
-        // dynamic ro = createNode("rotateobject");
-        // nodes.Add(ro);
-
-        // dynamic so = createNode("scaleobject");
-        // nodes.Add(so);
-
-        // e.setOutputPin(mo, 0);
-
-        // mo.setInputPin(vc1 , 0, PinDataType.Vector);
-        // mo.setInputPin(c1, 1, PinDataType.GameObject);
-        // mo.setOutputPin(so, 0);
-
-        // so.setInputPin(vc2 , 0, PinDataType.Vector);
-        // so.setInputPin(c1, 1, PinDataType.GameObject);
-        // so.setOutputPin(ro, 0);
-
-        // ro.setInputPin(vc3, 0, PinDataType.Vector);
-        // ro.setInputPin(c1, 1, PinDataType.GameObject);
-
-    }
-
-    public void Start() {
+    public void ScriptStart() {
         if (eventStartNode!=null)
             eventStartNode.run();
     }
@@ -169,6 +94,10 @@ public class ScriptContainer : MonoBehaviour {
                 return new NumberToInt();
             case "inttonum":
                 return new IntToNumber();
+            case "numtostring":
+                return new NumberToString();
+            case "inttostring":
+                return new IntToString();
             case "addint":
                 return new AddInt();
             case "addnum":
@@ -227,6 +156,8 @@ public class ScriptContainer : MonoBehaviour {
                 return new CreateImageComponent();
             case "setcompimage":
                 return new SetComponentImage();
+            case "instantiatemodel":
+                return new InstantiateModel();
             
             case "eventstart":
                 eventStartNode = new EventNode();
@@ -254,42 +185,42 @@ public class ScriptContainer : MonoBehaviour {
                 return eventSwipeLeftNode;
         
             case "setterbool":
-                return new SetterNode<bool>();
+                return new SetterNode<bool>(symbolTable);
             case "setterstring":
-                return new SetterNode<string>();
+                return new SetterNode<string>(symbolTable);
             case "setternum":
-                return new SetterNode<float>();
+                return new SetterNode<float>(symbolTable);
             case "setterint":
-                return new SetterNode<int>();
+                return new SetterNode<int>(symbolTable);
             case "setterobj":
-                return new SetterNode<GameObject>();
+                return new SetterNode<GameObject>(symbolTable);
             case "setter3d":
-                return new SetterNode<_3DObject>();
+                return new SetterNode<_3DObject>(symbolTable);
             case "setterpm":
-                return new SetterNode<GameObject>();
+                return new SetterNode<GameObject>(symbolTable);
             case "settertext":
-                return new SetterNode<Text>();
+                return new SetterNode<TextMesh>(symbolTable);
             case "settervector":
-                return new SetterNode<Vector3>();
+                return new SetterNode<Vector3>(symbolTable);
         
             case "getterbool":
-                return new GetterNode<bool>();
+                return new GetterNode<bool>(symbolTable);
             case "getterstring":
-                return new GetterNode<string>();
+                return new GetterNode<string>(symbolTable);
             case "getternum":
-                return new GetterNode<float>();
+                return new GetterNode<float>(symbolTable);
             case "getterint":
-                return new GetterNode<int>();
+                return new GetterNode<int>(symbolTable);
             case "getterobj":
-                return new GetterNode<GameObject>();
+                return new GetterNode<GameObject>(symbolTable);
             case "getter3d":
-                return new GetterNode<_3DObject>();
+                return new GetterNode<_3DObject>(symbolTable);
             case "getterpm":
-                return new GetterNode<GameObject>();
+                return new GetterNode<GameObject>(symbolTable);
             case "gettertext":
-                return new GetterNode<Text>();
+                return new GetterNode<TextMesh>(symbolTable);
             case "gettervector":
-                return new GetterNode<Vector3>();
+                return new GetterNode<Vector3>(symbolTable);
 
         
             case "constantbool":
@@ -302,28 +233,31 @@ public class ScriptContainer : MonoBehaviour {
                 return new ConstantNode<int>();
             case "constantvector":
                 return new ConstantNode<Vector3>();
-            case "constantobj":
-            case "constant3d":
-            case "constantpm":
-            case "constanttext":
-                return new ConstantNode<GameObject>();
+
+                
+            case "if":
+                return new IfNode();
+            case "while":
+                return new WhileNode();
             
             default:
             {
-                Debug.LogError("Invalid Node Type!");
+                Debug.LogError("Invalid Node Internal Name: " + type);
                 return new EventNode();
             }          
         }
     }
-    private void ParseIntermediateCode(string filename)
+    public void ParseIntermediateCode(string filename)
     {
         bool var_flag = true;
         int list_count = 0;
+        uint pinID = 0;
         
         FileStream fs = new FileStream(filename, FileMode.Open, FileAccess.Read);
 
         using (StreamReader streamReader = new StreamReader(fs, Encoding.Default))
         {
+            int lineno = 0;
             string line = String.Empty;
             while ((line = streamReader.ReadLine()) != null)
             {
@@ -379,35 +313,77 @@ public class ScriptContainer : MonoBehaviour {
                 }
                 else //if node_flag
                 {
-                    string internal_node_name;
                     if (line == "{")
                     {
-                        line = streamReader.ReadLine();
-                        internal_node_name = line;
+                        string internal_node_name = streamReader.ReadLine();
+                        string displayname = streamReader.ReadLine();
                         dynamic nd = createNode(internal_node_name);
+                        ((Node)nd).displayname = displayname;
+                        ((Node)nd).internalname = internal_node_name;
+                        ((Node)nd).scriptContainer = this;
                         nodes.Add(nd);
+
+                        string node_type = streamReader.ReadLine();
+                        NodeType nt = NodeType.Event;
+                        switch (node_type)
+                        {
+                            case "Constant":
+                                nt = NodeType.Constant;
+                                break;
+                            case "Event":
+                                nt = NodeType.Event;
+                                break;
+                            case "FlowNode":
+                                nt = NodeType.FlowNode;
+                                break;
+                            case "Function":
+                                nt = NodeType.Function;
+                                break;
+                            case "Getter":
+                                nt = NodeType.Getter;
+                                break;
+                            case "Setter":
+                                nt = NodeType.Setter;
+                                break;
+                            case "Intermediate":
+                                nt = NodeType.Intermediate;
+                                break;
+                            default:
+                                Debug.LogError("Invalid Node Type " + node_type);
+                                break;
+                        }
 
                         while (streamReader.ReadLine() != "[") ; //ignore graphical data
 
                         line = streamReader.ReadLine();
+                        pinID = 0;
                         while (line != "]") //read input pins
                         {
-                            string[] tokens = line.Split(' ');
-                            if (tokens[0] != "Execution") //save pins if not execution
+                            if (lineno++ >= 2000) {
+                                Debug.Log(line);
+                                Debug.Log("ERROR");
+                                return;
+                            }
+                            int colonpos = line.IndexOf(":");
+                            int bracketpos = line.IndexOf(" (");
+
+                            // string pin_name = line.Substring(0, colonpos);
+                            string pindt = line.Substring(colonpos + 1, bracketpos - colonpos - 1);
+                            if (pindt != "Execution") //save pins if not execution
                             {
                                 uint node_index, pin_index, datatype_index_start, datatype_index_end;
                                 string datatype;
 
                                 //parse line to find node and pin
-                                node_index = (uint)(line.IndexOf("node") + 4);
-                                pin_index = (uint)(line.IndexOf("pin") + 3);
-                                datatype_index_start = (uint)(line.IndexOf(":") + 1);
-                                datatype_index_end = (uint)(line.IndexOf(" ", (int)datatype_index_start));
-                                datatype = line.Substring((int)datatype_index_start, (int)datatype_index_end - (int)datatype_index_start);
-
+                                int p  = (line.IndexOf("node", bracketpos) + 4);
+                                int p2 = (line.IndexOf("pin", p));
+                                int p3 = (line.IndexOf(")", p2));
+                                node_index = Convert.ToUInt32(line.Substring(p, p2 - p - 2));
+                                pin_index = Convert.ToUInt32(line.Substring(p2 + 3, p3 - p2 - 3));
+                                
                                 PinDataType pdt = PinDataType.Number; //Default
 
-                                switch (datatype)
+                                switch (pindt)
                                 {
                                     case "GameObject":
                                         pdt = PinDataType.GameObject;
@@ -443,11 +419,11 @@ public class ScriptContainer : MonoBehaviour {
                                         pdt = PinDataType.Vector;
                                         break;
                                     default:
-                                        Debug.LogError("Invalid Pin Datatype");
+                                        Debug.LogError("Invalid Pin Datatype: " + pindt);
                                         break;
                                 }
 
-                                nd.setInputPin(nodes[(int)node_index], pin_index, pdt);
+                                nd.setInputPin((int)pinID++, node_index, pin_index, pdt);
                             }
                             line = streamReader.ReadLine();
                         }
@@ -455,30 +431,116 @@ public class ScriptContainer : MonoBehaviour {
                         streamReader.ReadLine(); //ignore '['
 
                         line = streamReader.ReadLine();
+                        pinID = 0;
                         while (line != "]") //read ouput pins
                         {
-                            string[] tokens = line.Split(' ');
-                            if (tokens[0] == "Execution") //save pins only if execution
+                            if (lineno++ >= 2000) {
+                                Debug.Log(line);
+                                Debug.Log("ERROR");
+                                return;
+                            }
+
+                            int colonpos = line.IndexOf(":");
+                            int bracketpos = line.IndexOf(" [");
+
+                            string pindt = line.Substring(colonpos + 1, bracketpos - colonpos - 1);
+                            if (pindt == "Execution") //save pins only if execution
                             {
                                 uint node_index, pin_index;
-
-                                //parse line to find node and pin
-                                node_index = (uint)(line.IndexOf("node") + 4);
-                                pin_index = (uint)(line.IndexOf("pin") + 3);
                                 
-                                //parse line to find node and pin
-                                nd.setOutputPin(nodes[(int)node_index], pin_index);
+                                if (line.IndexOf("(") != -1) {
 
-                                line = streamReader.ReadLine();
+                                        //parse line to find node and pin
+                                        int p  = (line.IndexOf("node") + 4);
+                                        int p2 = (line.IndexOf("pin", p));
+                                        int p3 = (line.IndexOf(")", p2));
+                                        string nodeidstr = line.Substring(p, p2 - p - 2);
+                                        string pinidstr = line.Substring(p2 + 3, p3 - p2 - 3);
+                                        node_index = Convert.ToUInt32(nodeidstr);
+                                        pin_index = Convert.ToUInt32(pinidstr);
+                                    
+                                    //parse line to find node and pin
+                                    nd.setOutputPin((int)pinID++, node_index, pin_index);
+                                }
+                                
                             }
+                            
+                            line = streamReader.ReadLine();
                         }
 
                         streamReader.ReadLine(); //ignore '['
 
                         line = streamReader.ReadLine();
+                        pinID = 0;
                         while (line != "]") //read parameters
                         {
-                            //TODO: save parameters
+                            if (lineno++ >= 2000) {
+                                Debug.Log(line);
+                                Debug.Log("ERROR");
+                                return;
+                            }
+
+                            int p1 = line.IndexOf(":");
+                            int p2 = line.IndexOf(":", p1 + 1);
+                            string typename = line.Substring(p1 + 1, p2 - p1 - 1);
+                            string value = line.Substring(p2 + 1);
+                            switch (typename)
+                            {
+                                case "Integer": {
+                                    int intval = Convert.ToInt32(value);
+                                    ConstantNode<int> cn = (ConstantNode<int>)nd;
+                                    cn.setConstant(intval);
+                                    break;
+                                }
+                                case "Number": {
+                                    float floatval = float.Parse(value);
+                                    ConstantNode<float> cn = (ConstantNode<float>)nd;
+                                    cn.setConstant(floatval);
+                                    break;
+                                }
+                                case "String": {
+                                    ConstantNode<string> cn = (ConstantNode<string>)nd;
+                                    cn.setConstant(value);
+                                    break;
+                                }
+                                case "Bool": {
+                                    bool boolval = value == "on";
+                                    ConstantNode<bool> cn = (ConstantNode<bool>)nd;
+                                    cn.setConstant(boolval);
+                                    break;
+                                }
+                                case "Vector": {
+                                    int pc1 = value.IndexOf(",");
+                                    int pc2 = value.LastIndexOf(",");
+                                    string x = value.Substring(0, pc1);
+                                    string y = value.Substring(pc1 + 1, pc2 - pc1 - 1);
+                                    string z = value.Substring(pc2 + 1);
+                                    float xf = float.Parse(x);
+                                    float yf = float.Parse(y);
+                                    float zf = float.Parse(z);
+                                    ConstantNode<Vector3> cn = (ConstantNode<Vector3>)nd;
+                                    cn.setConstant(new Vector3(xf, yf, zf));
+                                    break;
+                                }
+                                case "VariableReference": {
+                                    if (nt == NodeType.Getter) {
+                                        GetterNode gn = (GetterNode)nd;
+                                        gn.setVarName(value);
+                                    }
+                                    else if (nt == NodeType.Setter) {
+                                        SetterNode sn = (SetterNode)nd;
+                                        sn.setVarName(value);
+                                    }
+                                    else {
+                                        Debug.Log("Unexpected setter!");
+                                    }
+                                    break;
+                                }
+                                default:
+                                    Debug.LogError("Invalid Parameter Datatype");
+                                    break;
+                            }
+
                             line = streamReader.ReadLine();
                         }
                         streamReader.ReadLine(); //ignore "}"
@@ -486,6 +548,10 @@ public class ScriptContainer : MonoBehaviour {
                 }
             }
         }
-    }
+    
 
+        foreach (Node n in nodes) {
+            n.setPinValues();
+        }
+    }
 }

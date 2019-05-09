@@ -24,11 +24,12 @@ public class WhileNode : Node {
         }
         dynamic condition;
         condition = inputPins[0].get();
-        while((condition as bool?).Value) {
-            outputPins[0].run();
+        int i = 0;
+        while((condition as bool?).Value && i++ < 1000) {
+            outputPins[1].run();
             condition = inputPins[0].get();
         }
             
-        outputPins[1].run();
+        outputPins[0].run();
     }
 }

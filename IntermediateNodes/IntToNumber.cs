@@ -18,10 +18,8 @@ public class IntToNumber : Node {
             return -1;
         }
 
-        float x = (float)inputPins[0].get();
+        float x = (int)(float)inputPins[0].get();
         
-        Debug.Log("NumberToInt done");
-
         return x;
         
     }

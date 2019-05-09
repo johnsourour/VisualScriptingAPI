@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class GetComponentText : Node {
 
-    private Text textComponent;
+    private TextMesh textComponent;
     public GetComponentText() : base(NodeType.Function) {
         addInputPin(new PinValue()); //Text   
         addOutputPin(new PinExecutable()); //exec out  

@@ -22,8 +22,6 @@ public class IndexString : Node {
         string x = inputPins[0].get();
         string y = inputPins[1].get();
         int z = x.IndexOf(y);
-        
-        Debug.Log("IndexOf done");
 
         return z;
         

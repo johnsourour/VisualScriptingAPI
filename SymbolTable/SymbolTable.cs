@@ -51,7 +51,13 @@ public class SymbolTable {
     }
     
     public void     Set<T>(string key, T value) {
-        ((SymbolTableEntry<T>)searchTable(key)).value = value;
+        SymbolTableEntry ste = searchTable(key);
+        if (ste == null) {
+            Debug.Log("Key " + key + " not found.");
+        }
+        else {
+            ((SymbolTableEntry<T>)ste).value = value;
+        }
     }
     
     public void     Set(string key, int value) {

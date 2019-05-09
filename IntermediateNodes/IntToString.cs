@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NumberToInt : Node {
+public class IntToString : Node {
 
-    public NumberToInt() : base(NodeType.Intermediate) {
-        addInputPin(new PinValue()); //float  
+    public IntToString() : base(NodeType.Intermediate) {
+        addInputPin(new PinValue()); //int
     }
 
     public bool ready(){
@@ -18,7 +18,8 @@ public class NumberToInt : Node {
             return -1;
         }
 
-        int x = Mathf.FloorToInt((float)inputPins[0].get());
+        int v = (int)inputPins[0].get();
+        string x = v.ToString();
 
         return x;
         

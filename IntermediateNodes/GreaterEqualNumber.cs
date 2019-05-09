@@ -22,8 +22,6 @@ public class GreaterEqualNumber : Node {
         float x = inputPins[0].get();
         float y = inputPins[1].get();
         bool z = x >= y;
-        
-        Debug.Log("Greater or equal number done");
 
         return z;
         

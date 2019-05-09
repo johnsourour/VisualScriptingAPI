@@ -22,8 +22,6 @@ public class AddInt : Node {
         int x = inputPins[0].get();
         int y = inputPins[1].get();
         int z = x + y;
-        
-        Debug.Log("Ints Added");
 
         return z;
         

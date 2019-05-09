@@ -23,8 +23,6 @@ public class GreaterEqualInt : Node {
         int y = inputPins[1].get();
         bool z = x >= y;
         
-        Debug.Log("Greater or equal int done");
-
         return z;
         
     }

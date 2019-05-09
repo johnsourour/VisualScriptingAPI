@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CreateObject : Node {
+    GameObject objspawned;
 
     public CreateObject() : base(NodeType.Function) {
         addInputPin(new PinValue()); //parent      
@@ -11,6 +12,10 @@ public class CreateObject : Node {
 
     public bool ready(){
         return inputPins[0].exists();
+    }
+
+    public override dynamic get(uint pinID) {
+        return objspawned;
     }
     
     public override void run(){
@@ -21,11 +26,11 @@ public class CreateObject : Node {
         }
 
 
-        GameObject obj = inputPins[0].get();
-        Transform parent = obj.transform;
+        string objname = inputPins[0].get();
+        Transform parent = scriptContainer.contentArea;
         
-        GameObject objToSpawn = new GameObject();
-        objToSpawn.transform.parent = parent;
+        objspawned = new GameObject(objname);
+        objspawned.transform.parent = parent;
         Debug.Log("Object created!");
         
         outputPins[0].run();

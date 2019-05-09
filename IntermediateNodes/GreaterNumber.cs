@@ -23,8 +23,6 @@ public class GreaterNumber : Node {
         float y = inputPins[1].get();
         bool z = x > y;
         
-        Debug.Log("Greater number done");
-
         return z;
         
     }

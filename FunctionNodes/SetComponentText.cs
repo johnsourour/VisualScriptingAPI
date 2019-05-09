@@ -22,7 +22,7 @@ public class SetComponentText : Node {
             return;
         }
 
-        Text textComponent = inputPins[0].get();        
+        TextMesh textComponent = inputPins[0].get();        
         string str = inputPins[1].get();
         
         textComponent.text = str;

@@ -23,7 +23,7 @@ public class CreateTextComponent : Node {
         }
 
         GameObject obj = inputPins[0].get();
-        comp = obj.AddComponent<Text>();
+        comp = obj.AddComponent<TextMesh>();
 
         
         Debug.Log("Text Component Created");

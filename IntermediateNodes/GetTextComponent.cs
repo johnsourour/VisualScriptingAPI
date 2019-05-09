@@ -20,7 +20,7 @@ public class GetTextComponent : Node {
         }
 
         GameObject obj = inputPins[0].get();
-        return obj.GetComponent(typeof(Text)) as Text;
+        return obj.GetComponent<TextMesh>() as TextMesh;
     }
 
     
